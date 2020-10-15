@@ -20,9 +20,9 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::group(['prefix' => 'v1'], function () {
-    Route::group(['prefix' => 'auth'], function () {
-        // Route::apiResource('users', 'UserController');
-    });
+    /*Route::group(['prefix' => 'auth'], function () {
+
+    });*/
 
     Route::apiResource('users', UserController::class)->only(['store', 'index']);
 });
