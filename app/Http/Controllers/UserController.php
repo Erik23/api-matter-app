@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -28,7 +29,11 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-        $user = new User($request->all());
+        $user = new User();
+        $user->email = $request->email;
+        if($request->has('password')) {
+            $user->password = Hash::make($request->password);
+        }
         $user->save();
         return response()->json($user, 201);
     }
@@ -41,7 +46,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return response()->json($user, 200);
     }
 
     /**
@@ -53,7 +58,12 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        // $user->update($request->except('email'));
+        if($request->has('password')) {
+            $user->password = Hash::make($request->password);
+        }
+        $user->save();
+        return response()->json($user, 200);
     }
 
     /**

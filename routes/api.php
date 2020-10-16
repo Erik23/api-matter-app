@@ -3,7 +3,7 @@
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,9 +20,10 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::group(['prefix' => 'v1'], function () {
-    /*Route::group(['prefix' => 'auth'], function () {
+    Route::group(['prefix' => 'auth'], function () {
+        Route::post('/login', [AuthController::class, 'login']);
+    });
 
-    });*/
-
-    Route::apiResource('users', UserController::class)->only(['store', 'index']);
+    // Route::apiResource('users', UserController::class)->only(['store', 'index', 'update', 'show']);
+    Route::apiResource('users', UserController::class)->except(['delete']);
 });
