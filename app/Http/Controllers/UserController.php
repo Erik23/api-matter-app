@@ -38,6 +38,9 @@ class UserController extends Controller
         if($request->has('password')) {
             $user->password = Hash::make($request->password);
         }
+        if($request->has('name')) {
+            $user->name = $request->name;
+        }
         $user->save();
         return response()->json($user, 201);
     }
@@ -65,6 +68,9 @@ class UserController extends Controller
         // $user->update($request->except('email'));
         if($request->has('password')) {
             $user->password = Hash::make($request->password);
+        }
+        if($request->has('name')) {
+            $user->name = $request->name;
         }
         $user->save();
         return response()->json($user, 200);
