@@ -95,7 +95,7 @@ class UserController extends Controller
             'user_invited_id' => $userToInvite->id,
         ]);
 
-        return response()->json($invitation, '201');
+        return response()->json($invitation, 201);
     }
 
     public function invitations(User $user) {
