@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /* Made invitations */
+    public function invitations() {
+        return $this->hasMany(Invitation::class);
+    }
 }

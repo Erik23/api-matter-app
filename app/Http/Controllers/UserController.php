@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InvitationRequest;
+use App\Http\Requests\SkillUserRequest;
 use App\Http\Requests\UserRequest;
+use App\Mail\UserInvitation;
+use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -75,5 +79,20 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function invite(InvitationRequest $request, User $user) {
+
+        $userToInvite = User::FirstOrCreate(['email' => $request->email]);
+        Mail::to($userToInvite)->send(new UserInvitation($user->name));
+        $invitation = $user->invitations()->create([
+            'user_invited_id' => $userToInvite->id,
+        ]);
+
+        return response()->json($invitation, '201');
+    }
+
+    public function invitations(User $user) {
+        return response()->json($user->invitations, 200);
     }
 }
