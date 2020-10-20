@@ -28,10 +28,12 @@ Route::group(['prefix' => 'v1'], function () {
     Route::group(['prefix' => 'users'], function () {
         Route::post('{user}/invite', [UserController::class, 'invite']);
         Route::get('{user}/invitations', [UserController::class, 'invitations']);
+        Route::get('{user}/feedback-invitations', [UserController::class, 'feedbackInvitations']);
         /* next link does not work*/
         // Route::apiResource('', UserController::class)->except(['delete']);
     });
     Route::apiResource('users', UserController::class)->except(['delete']);
+    Route::get('invitations/{invitation}/feedback', [InvitationController::class, 'feedback']);
     Route::post('invitations/{invitation}/skills/{skill}', [InvitationController::class, 'skills']);
     Route::apiResource('skills', SkillController::class)->only(['index']);
 });

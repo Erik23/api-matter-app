@@ -68,4 +68,8 @@ class InvitationController extends Controller
         $invitation->skills()->attach($skill, ['score' => $request->score]);
         return response('Saved score', 200);
     }
+
+    public function feedback(Invitation $invitation) {
+        return response()->json($invitation->skills, 200);
+    }
 }

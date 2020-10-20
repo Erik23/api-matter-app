@@ -101,4 +101,8 @@ class UserController extends Controller
     public function invitations(User $user) {
         return response()->json($user->invitations, 200);
     }
+
+    public function feedbackInvitations(User $user) {
+        return response()->json($user->feedbackInvitations, 200);
+    }
 }

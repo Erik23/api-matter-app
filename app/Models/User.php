@@ -45,4 +45,7 @@ class User extends Authenticatable
     public function invitations() {
         return $this->hasMany(Invitation::class);
     }
+    public function feedbackInvitations() {
+        return $this->hasMany(Invitation::class, 'user_invited_id');
+    }
 }
