@@ -43,7 +43,7 @@ class User extends Authenticatable
 
     /* Made invitations */
     public function invitations() {
-        return $this->hasMany(Invitation::class);
+        return $this->hasMany(Invitation::class)->with('skills');
     }
     public function feedbackInvitations() {
         return $this->hasMany(Invitation::class, 'user_invited_id');
